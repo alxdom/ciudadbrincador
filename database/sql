@@ -1,0 +1,32 @@
+   -- -----------------------------------------------------
+        -- Table `default_schema`.`asignatura_pulsera_tiempo_al_Cliente`
+        -- -----------------------------------------------------
+        CREATE TABLE IF NOT EXISTS `default_schema`.`asignatura_pulsera_tiempo_al_Cliente` (
+          `id_pulsera` INT(11) NULL DEFAULT NULL,
+          `id_tiempo` INT(10) NULL DEFAULT NULL,
+          `id_usuarios` INT NOT NULL,
+
+          INDEX `fk_id_pulsera` (`id_pulsera` ASC),
+          INDEX `fk_id_tiempo` (`id_tiempo` ASC),
+          INDEX `fk_asignatura` (`id_usuarios` ASC),
+
+
+          CONSTRAINT `cliente_ibfk_1`
+            FOREIGN KEY (`id_pulsera`)
+            REFERENCES `default_schema`.`pulsera` (`id_pulsera`)
+            ON DELETE SET NULL
+            ON UPDATE CASCADE,
+          CONSTRAINT `cliente_ibfk_2`
+            FOREIGN KEY (`id_tiempo`)
+            REFERENCES `default_schema`.`tiempo` (`id_tiempo`)
+            ON DELETE SET NULL
+            ON UPDATE CASCADE,
+          CONSTRAINT `asignatura_ibfk_2`
+            FOREIGN KEY (`id_usuarios`)
+            REFERENCES `default_schema`.`usuarios` (`id_usuarios`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION)
+
+
+        ENGINE = InnoDB
+        DEFAULT CHARACTER SET = utf8
