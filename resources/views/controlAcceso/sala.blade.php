@@ -1,16 +1,19 @@
 @extends('layouts.app', ['pageSlug' => 'sala'])
-
+<script>
+  var refrescar = setInterval(function(){
+    location.reload();
+  }, 10000);
+</script>
 <script type="application/javascript">
   // Establece la fecha hasta la que estamos contando
   var countdowns = [
   @foreach ($tiempos as $tiempo)
     {
       id: {{$tiempo->id}},
-      date: new Date("<?php echo date('M j, Y H:i:s', strtotime($tiempo->descripcion));?>").getTime()
+      date: new Date("<?php echo date('M j, Y H:i:s', strtotime($tiempo->hora_salida));?>").getTime()
     },
     @endforeach
   ];
-  
   // Actualiza la cuenta hacia atrás cada 1 segundo
   var timer = setInterval(function() {
     // Obtiene la fecha y hora de hoy
