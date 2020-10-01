@@ -23,9 +23,7 @@ class CreateTiempoTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('descripcion', 30);
-            $table->string('orden', 30);
-            $table->integer('strike');
+            $table->dateTime('hora_salida');
         });
     }
 

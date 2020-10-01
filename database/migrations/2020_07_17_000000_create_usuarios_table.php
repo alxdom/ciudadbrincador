@@ -29,7 +29,7 @@ class CreateUsuariosTable extends Migration
             $table->string('apellidoM', 45);
             $table->string('tel', 45);
             $table->string('domicilio', 45);
-            $table->string('foto', 45);
+            $table->string('foto', 45)->nullable($value = true);
         });
     }
 
