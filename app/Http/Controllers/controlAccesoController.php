@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Usuario;
 use App\Tiempo;
+use App\Pulsera;
 
 class controlAccesoController extends Controller
 {
@@ -17,9 +18,6 @@ class controlAccesoController extends Controller
     public function index()
     {
         Gate::authorize('haveaccess','controlAcceso.index');
-
-        
-        
 
         return view('controlAcceso.index');
     }
@@ -45,12 +43,37 @@ class controlAccesoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function asignar()
+    public function asignar(Request $request)
     {
-        $cinco = collect([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]);
+        $pulseras = Pulsera::all();
 
-        return view('controlAcceso.asignar', compact('cinco'));
+        $usuarios = Usuario::all();
+
+        
+        
+        return view('controlAcceso.asignar', compact('pulseras', 'usuarios'));
     }
+
+
+     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function asignarStore(Request $request)
+    {
+        $request->validate([
+            'usuario'   => 'required',
+            'tiempo'    => 'required',
+            'pulsera'   => 'required',
+            
+        ]);
+
+        $asignar = Asignar::create($request->all());
+    
+        return redirect()->route('controlAcceso.asignar')->with('status_success', 'El registro se guardo correctamente');
+    }
+
 
     /**
      * Store a newly created resource in storage.

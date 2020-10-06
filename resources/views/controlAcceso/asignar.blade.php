@@ -19,26 +19,25 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-              <form>
+              
+                <form action="{{ route('controlAcceso.asignarStore') }}" method="post">
+                  @csrf
                 <div class="form-row">
 
                   <div class="form-group col-md-6">
-                    <label for="inputName">Buscar usuario</label>
-                    
-
-                    <div class="input-group md-form form-sm form-1 pl-0">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text purple lighten-3" id="basic-text1"><i class="fas fa-search text-white"
-                            aria-hidden="true"></i></span>
-                      </div>
-                      <input class="form-control form-control-lg my-0 py-1" type="text" placeholder="Buscar por nombre.." aria-label="Search">
-                    </div>
-
+                    <label for="inputName">Usuario</label>
+                    <Select class="form-control form-control-lg" name="usuario">
+                      <option value="">Seleccione el usuario..</option>
+                      @foreach ($usuarios as $usuario)
+                        <option style="background-color: black" value="{{$usuario->id}}">{{ $usuario->nombre }}</option>
+                      @endforeach
+                      
+                    </Select>
                   </div>
 
                   <div class="form-group col-md-6">
                     <label for="inputName">Tiempo solicitado</label>
-                    <Select class="form-control form-control-lg">
+                    <Select class="form-control form-control-lg" name="tiempo">
                       <option value="">Seleccione el tiempo..</option>
                       <option style="background-color: black" value="1">1 hora</option>
                       <option style="background-color: black" value="2">2 hora</option>
@@ -49,39 +48,19 @@
                 </div>
                 
 
-                <div class="row">
-                  <div class="form-group col-md-12">
-                    <input type="text" name="result" class="form-control form-control-lg my-0 py-1 text-center" placeholder="Resultados de la busqueda..">
-                  </div>
-                </div>
-
-                <br>
-                <br>
                 <div class="form-group col-12">
                   <label for="inputName">Seleccione una pulsera.</label>
-                    
-                  <ul class="ks-cboxtags">
-                    @foreach ($cinco as $number)
-                    <li>
-                      <input  type="checkbox" 
-                              class="custom-control-input" 
-                              id="{{$number}}" 
-                              value="{{$number}}" 
-                              name="number[]">
-    
-                      <label for="{{$number}}"
-                        data-toggle="tooltip" 
-                        title="{{$number}}" 
-                        >
-                      {{$number}}
-                      
-                      </label>
-                      
+                  <br>
+                  <Select class="form-control form-control-lg" name="pulsera">
+                    <option value="">Seleccione la pulsera..</option>
+                    @foreach ($pulseras as $pulsera)
+                      <option style="background-color: black" value="{{$pulsera->id}}">{{ $pulsera->id}}</option>
                     @endforeach
-                  </li>
-                </ul>
+                    
+                  </Select>
+            
+                      
 
-                 
                 </div>
                 <button type="submit" class="btn btn-primary">Enviar</button>
               </form>

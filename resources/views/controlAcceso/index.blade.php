@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-sm-6 text-left">
                         <h5 class="card-category">Control de acceso</h5>
-                        <h2 class="card-title">Area de registro</h2>
+                        <h2 class="card-title">Area de registros gatos</h2>
                     </div>
                 </div>
             </div>
