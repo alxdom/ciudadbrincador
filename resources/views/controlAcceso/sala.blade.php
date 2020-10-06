@@ -39,6 +39,9 @@
       // Si el tiempo termina, escribimos que ha expirado 
       if (distance < 0) {
         timerElement.innerHTML = "EXPIRED";
+        var x = document.getElementById("card" + countdown.id);
+        x.style.background = "red"; 
+        x.style.color = "white"; 
         // El contador terminó, lo removemos
         countdowns.splice(index, 1);
       } else {
@@ -53,29 +56,23 @@
       clearInterval(timer);
     }
   }, 1000);
-
 </script>
 
 @section('content')
     <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-            <div class="card-header">
+        <div class="container">
             Prueba contadores individuales
             </div>
-            <div class="card-body">
-                <table class="table table-striped table-bordered">
-                    <tbody>
-                        @foreach ($tiempos as $tiempo)
-                            <tr>
-                                <td><b>{{$tiempo->orden}}</b></td> {{-- Aquí en "orden" sólo hardcodeé nombres de morros--}}
-                                <td><div id="contador{{$tiempo->id}}"></td></div> {{--Aquí se mostrará el tiempo de cada contador--}}
-                                </td>
-                            </tr>
-                            @endforeach
-                    </tbody>
-                </table>
-            </div>
-            </div>
+            <div class="card-group">
+              @foreach ($tiempos as $tiempo)
+                <div class="card m-4" id="card{{$tiempo->id}}" style="width: 18rem;">
+                  <div class="card-body">
+                    <img class="card-img-top" src="http://lorempixel.com/400/200/people/" alt="Card image cap">
+                    <h2 class="card-title">Tiempo restante: <div id="contador{{$tiempo->id}}"></div></h2>
+                    <p class="card-text">Id del morro: {{$tiempo->id}}</p>
+                  <p class="card-text"><small class="text-muted">Tiempo de llegada: {{$tiempo->created_at}}</small></p>
+                  </div>
+                </div>
+              @endforeach
         </div>
 @endsection
