@@ -49,7 +49,7 @@
                                 
                                 <form action="{{route('roles.destroy', $role->id)}}" method="POST">
                                 @csrf @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm"><i class="tim-icons icon-simple-remove"></i></button>
+                                <button type="submit" class="btn btn-danger btn-sm"></button>
                                 </form>
                             </td>
                            

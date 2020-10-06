@@ -13,6 +13,7 @@ Route::get('/panelAdmin', 'HomeController@panelAdmin')->name('panel')->middlewar
 Route::get('eventos/create', 'EventoController@create');
 
 Route::get('/asignar', 'controlAccesoController@asignar')->name('asignar')->middleware('auth');
+Route::post('/asignar', 'controlAccesoController@asignarStore')->name('asignarStore')->middleware('auth');
 Route::get('/sala', 'controlAccesoController@morros');
 
 Route::resource('controlAcceso', 	'controlAccesoController')	->middleware('auth');

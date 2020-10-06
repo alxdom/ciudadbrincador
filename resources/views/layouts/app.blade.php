@@ -22,6 +22,7 @@
         <style>
             body{
                 background-image: url("https://www.xtrafondos.com/wallpapers/luces-neon-en-perspectiva-3470.jpg");
+                background-color: #D91E18;
             }
             .alado{
                 background-color: cornflowerblue;
@@ -99,6 +100,41 @@
             ul.ks-cboxtags li input[type="checkbox"]:focus + label {
             border: 2px solid #e9a1ff;
             }
+
+             /* Radio buttons pulseras */
+
+            .button-label {
+            
+            padding: 40px;
+            margin: 0.1em;
+            cursor: pointer;
+            color: black;
+            border-radius: 2em;
+            background: #efefef;
+            transition: 0.10s;
+            }
+
+
+            .button-label:hover {
+                background: #2ECC71;
+                color: aliceblue;
+                
+            }
+
+            #pulsera:checked + .button-label {
+            background: #2ECC71;
+            color: #efefef;
+            }
+            #pulsera:checked + .button-label:hover {
+                background: darkgreen;
+                color: #adadad;
+            }
+            
+
+            .hidden {
+            display: none;
+            }
+            
         </style>
     </head>
     
