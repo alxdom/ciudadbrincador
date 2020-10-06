@@ -28,7 +28,7 @@ class CreateTiempoTable extends Migration
             $table->timestamps();
 
             $table->index(["id_usuario"], 'fk_tiempo_usuario');
-
+            
             $table->foreign('id_usuario', 'fk_tiempo_usuario')
                 ->references('id')->on('usuarios')
                 ->onDelete('no action')

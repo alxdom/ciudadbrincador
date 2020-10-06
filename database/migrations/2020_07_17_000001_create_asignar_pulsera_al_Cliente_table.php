@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAsignaturaPulseraTiempoAlClienteTable extends Migration
+class CreateAsignarPulseraAlClienteTable extends Migration 
 {
     /**
      * Schema table name to migrate
