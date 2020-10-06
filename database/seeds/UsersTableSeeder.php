@@ -41,5 +41,14 @@ class UsersTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+        DB::table('users')->insert([
+            'id' => 4,
+            'name' => 'Set Martinez',
+            'email' => 'setmartinezjimenez@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('mussgo'),
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 }

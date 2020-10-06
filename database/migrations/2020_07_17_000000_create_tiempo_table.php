@@ -24,6 +24,15 @@ class CreateTiempoTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->timeTZ('hora_salida');
+            $table->integer('id_usuario')->unsigned();
+            $table->timestamps();
+
+            $table->index(["id_usuario"], 'fk_tiempo_usuario');
+
+            $table->foreign('id_usuario', 'fk_tiempo_usuario')
+                ->references('id')->on('usuarios')
+                ->onDelete('no action')
+                ->onUpdate('no action');
         });
     }
 

@@ -24,7 +24,7 @@ class CreatePulseraTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('ip', 30);
-            $table->tinyInteger('estado')->nullable()->default(null);
+            //$table->tinyInteger('estado')->nullable()->default(null);
         });
     }
 
