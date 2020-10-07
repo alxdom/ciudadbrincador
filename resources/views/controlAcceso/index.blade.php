@@ -21,7 +21,7 @@
           @include('custom.message')
         </div>
         
-        <form method="POST" action="{{ route('controlAcceso.store') }}"> 
+        <form method="POST" action="{{ route('accesos.store') }}"> 
             @csrf
                 <div class="form-row" >
                 

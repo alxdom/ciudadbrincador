@@ -12,14 +12,21 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::get('/panelAdmin', 'HomeController@panelAdmin')->name('panel')->middleware('auth');
 Route::get('eventos/create', 'EventoController@create');
 
-Route::get('/asignar', 'controlAccesoController@asignar')->name('asignar')->middleware('auth');
-Route::post('/asignar', 'controlAccesoController@asignarStore')->name('asignarStore')->middleware('auth');
-Route::get('/sala', 'controlAccesoController@morros');
 
-Route::resource('controlAcceso', 	'controlAccesoController')	->middleware('auth');
+
+
+Route::resource('controlAcceso', 	'controlAccesoController')	->middleware('auth')->names('accesos');
+Route::get('/asignar', 'controlAccesoController@asignar')->name('accesos.asignar');
+Route::post('/asignar', 'controlAccesoController@asignarStore')->name('accesos.asignarStore');
+
+
+
+Route::get('/sala', 'controlAccesoController@morros');
 Route::resource('evento', 			'EventoController')			->middleware('auth');
 Route::resource('role', 			'RoleController')			->names('roles')->middleware('auth');
 Route::resource('user', 			'UserController')			->names('user')->middleware('auth');
+
+Route::get('/pivote','controlAccesoController@pivote')->name('accesos.pivote');
 
 
 

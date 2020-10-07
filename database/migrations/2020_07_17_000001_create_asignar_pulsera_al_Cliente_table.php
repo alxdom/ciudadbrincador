@@ -21,6 +21,7 @@ class CreateAsignarPulseraAlClienteTable extends Migration
     public function up()
     {
         Schema::create($this->tableName, function (Blueprint $table) {
+            $table->increments('id');
             $table->engine = 'InnoDB';
             $table->integer('id_pulsera')->nullable()->default(null)->unsigned();
             //$table->integer('id_tiempo')->nullable()->default(null)->unsigned();

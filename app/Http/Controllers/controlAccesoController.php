@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Usuario;
 use App\Tiempo;
 use App\Pulsera;
+use App\Asignar;
 
 class controlAccesoController extends Controller
 {
@@ -17,7 +18,7 @@ class controlAccesoController extends Controller
      */
     public function index()
     {
-        Gate::authorize('haveaccess','controlAcceso.index');
+        Gate::authorize('haveaccess','accesos.index');
 
         return view('controlAcceso.index');
     }
@@ -49,29 +50,32 @@ class controlAccesoController extends Controller
 
         $usuarios = Usuario::all();
 
-        
-        
+        $asigna = Asignar::all();
+
+        return (json_decode($asigna));
+
         return view('controlAcceso.asignar', compact('pulseras', 'usuarios'));
     }
 
 
-     /**
-     * Show the form for creating a new resource.
+ 
+    /**
+     * Store a newly created resource in storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function asignarStore(Request $request)
     {
         $request->validate([
-            'usuario'   => 'required',
-            'tiempo'    => 'required',
-            'pulsera'   => 'required',
-            
-        ]);
-
-        $asignar = Asignar::create($request->all());
-    
-        return redirect()->route('controlAcceso.asignar')->with('status_success', 'El registro se guardo correctamente');
+            'usuario'=>'required',
+            'pulsera'=>'required']);
+            //$rata = $request->only(['usuario', 'pulsera', '_token']);
+            //$asignar = Asignar::create($rata);
+            $rata = Asignar::create($request->all());
+            return $rata;
+            //dd($request->only(['usuario', 'pulsera', '_token']));
+        //return redirect()->route('accesos.asignar')->with('status_success', 'El registro se guardo correctamente');
     }
 
 
@@ -90,12 +94,9 @@ class controlAccesoController extends Controller
             'tel'       => 'required',
             'domicilio' => 'required',
         ]);
-        
-        
         $usuario = Usuario::create($request->all());
-
         return redirect()
-                        ->route('controlAcceso.index')
+                        ->route('accesos.index')
                         ->with('status_success', 'El registro se guardo correctamente');
     }
 
@@ -142,5 +143,10 @@ class controlAccesoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function pivote()
+    {
+        
     }
 }
