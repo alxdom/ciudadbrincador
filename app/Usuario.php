@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Tiempo;
 
 class Usuario extends Model
 {
@@ -19,8 +20,12 @@ class Usuario extends Model
 
     public $timestamps = false;
 
-    public function EventoUsuario(){
+    /*public function EventoUsuario(){
         return $this->hasMany(Evento::class,'id_usuarios','id');
+    } */
+    public function tiempo()
+    {
+        return $this->belongsToMany(Tiempo::class,'id_usuario','id');
     }
 }
 
