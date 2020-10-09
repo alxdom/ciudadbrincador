@@ -2,7 +2,7 @@
 <script>
   var refrescar = setInterval(function(){
     location.reload();
-  }, 10000);
+  }, 20000);
 </script>
 <script type="application/javascript">
   // Establece la fecha hasta la que estamos contando

@@ -25,7 +25,7 @@ class CreateAsignarPulseraAlClienteTable extends Migration
             $table->engine = 'InnoDB';
             $table->integer('id_pulsera')->nullable()->default(null)->unsigned();
             //$table->integer('id_tiempo')->nullable()->default(null)->unsigned();
-            $table->integer('id_usuarios')->unsigned();
+            $table->integer('id_usuarios')->nullable()->default(null)->unsigned();
 
             //$table->index(["id_tiempo"], 'fk_id_tiempo');
 

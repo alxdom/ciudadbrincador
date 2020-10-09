@@ -8,6 +8,8 @@ use App\Usuario;
 use App\Tiempo;
 use App\Pulsera;
 use App\Asignar;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class controlAccesoController extends Controller
 {
@@ -52,7 +54,7 @@ class controlAccesoController extends Controller
 
         $asigna = Asignar::all();
 
-        return (json_decode($asigna));
+        //return (json_decode($asigna));
 
         return view('controlAcceso.asignar', compact('pulseras', 'usuarios'));
     }
@@ -69,11 +71,35 @@ class controlAccesoController extends Controller
     {
         $request->validate([
             'usuario'=>'required',
-            'pulsera'=>'required']);
+            //'pulsera'=>'required']);
+            'tiempo'=>'required']);
             //$rata = $request->only(['usuario', 'pulsera', '_token']);
             //$asignar = Asignar::create($rata);
-            $rata = Asignar::create($request->all());
-            return $rata;
+            //dd($request->all());
+            $tiempo = $request->only(['tiempo']);
+            echo gettype($tiempo) , "\n";
+            $string = implode('',$tiempo);
+            echo $string;
+            $tiempoINT = (int)$string;
+            //dd($tiempoINT);
+            $tiempoBD = Carbon::now()->addHour($tiempoINT);
+            //echo $tiempoBD;
+            $id_usuario = $request->only(['usuario']);
+            $usuarioINT = (int)$id_usuario;
+            $llegada = date("Y-m-d H:i:s");
+            //echo $llegada;
+            //dd($llegada);
+            //$arreglo = [$tiempoBD, $id_usuario];
+            //$aber = json_encode($tiempoBD);
+            DB::insert('insert into tiempo (hora_salida, id_usuario, created_at) values (?, ?, ?)', [$tiempoBD, $usuarioINT, $llegada]);
+            //dd($query);
+            //$registrarTiempo = Tiempo::create($arreglo);
+            /*$usuario = $request->input("usuario");
+            $pulsera = $request->input("pulsera");
+            $arreglo = [$usuario, $pulsera];*/
+            //dd($usuario);
+            //$rata = Asignar::create($request->all());
+            //return $rata;
             //dd($request->only(['usuario', 'pulsera', '_token']));
         //return redirect()->route('accesos.asignar')->with('status_success', 'El registro se guardo correctamente');
     }
