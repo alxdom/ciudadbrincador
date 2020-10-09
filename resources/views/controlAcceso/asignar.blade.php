@@ -47,14 +47,14 @@
                 
 
                 <div class="form-group col-12">
-                  <!--<label for="inputName">Seleccione una pulsera.</label>
+                  <label for="inputName">Seleccione una pulsera.</label>
                   <br>
                   <Select class="form-control form-control-lg" name="pulsera" id="pulsera">
                     <option value="">Seleccione la pulsera..</option>
                     @foreach ($pulseras as $pulsera)
                       <option style="background-color: black" value="{{$pulsera->id}}">{{ $pulsera->id}}</option>
                     @endforeach
-                  </Select> -->
+                  </Select> 
                 </div>
                 
                 <input type="submit" value="Guardar">

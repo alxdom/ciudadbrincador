@@ -68,10 +68,11 @@ class controlAccesoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function asignarStore(Request $request)
-    {
+    {       
+
         $request->validate([
             'usuario'=>'required',
-            //'pulsera'=>'required']);
+            'pulsera'=>'required',
             'tiempo'=>'required']);
             //$rata = $request->only(['usuario', 'pulsera', '_token']);
             //$asignar = Asignar::create($rata);
@@ -84,14 +85,29 @@ class controlAccesoController extends Controller
             //dd($tiempoINT);
             $tiempoBD = Carbon::now()->addHour($tiempoINT);
             //echo $tiempoBD;
-            $id_usuario = $request->only(['usuario']);
+
+            $id_usuario = $request->usuario;
             $usuarioINT = (int)$id_usuario;
+
+            $id_pulsera = $request->pulsera;
+            //$pulseraINT = intval($id_pulsera);
+            //$pulseraINT = number_format($id_pulsera, 2); 
+            settype($id_pulsera, "integer");
+
+            
+
             $llegada = date("Y-m-d H:i:s");
             //echo $llegada;
             //dd($llegada);
             //$arreglo = [$tiempoBD, $id_usuario];
             //$aber = json_encode($tiempoBD);
+
+            //dd($pulseraINT, $request->only(['pulsera']));
+            //dd($request->only(['usuario']));
             DB::insert('insert into tiempo (hora_salida, id_usuario, created_at) values (?, ?, ?)', [$tiempoBD, $usuarioINT, $llegada]);
+            DB::insert('insert into asignar_pulsera_al_cliente (id_pulsera, id_usuarios) values (?, ?)', [$id_pulsera, $usuarioINT]);
+
+            
             //dd($query);
             //$registrarTiempo = Tiempo::create($arreglo);
             /*$usuario = $request->input("usuario");
@@ -101,7 +117,7 @@ class controlAccesoController extends Controller
             //$rata = Asignar::create($request->all());
             //return $rata;
             //dd($request->only(['usuario', 'pulsera', '_token']));
-        //return redirect()->route('accesos.asignar')->with('status_success', 'El registro se guardo correctamente');
+            return redirect()->route('accesos.asignar')->with('status_success', 'El registro se guardo correctamente');
     }
 
 
