@@ -27,7 +27,9 @@ class controlAccesoController extends Controller
 
     public function morros()
     {
-        $tiempos = Tiempo::all();
+        
+        $tiempos = Tiempo::with('usuario')->get();
+
         return view('controlAcceso.sala', compact('tiempos'));
 
     }

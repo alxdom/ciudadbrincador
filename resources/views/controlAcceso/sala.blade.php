@@ -65,18 +65,26 @@
 
   <div class="container">Prueba contadores individuales
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-      @foreach ($tiempos as $tiempo)
-      <div class="col-3 mb-4">
-        <div class="card" id="card{{$tiempo->id}}">
-          <div class="card-body">
-            <img class="card-img-top" src="http://lorempixel.com/400/200/people/" alt="Card image cap">
-            <h2 class="card-title">Tiempo restante: <div id="contador{{$tiempo->id}}"></div></h2>
-            <p class="card-text">Id del morro: {{$tiempo->id}}</p>
-            <p class="card-text"><small class="text-muted">Tiempo de llegada: {{$tiempo->created_at}}</small></p>
-          </div>
-        </div>
-      </div>
-      @endforeach
+      
+        
+          
+            @foreach ($tiempos as $tiempo)
+              
+            <div class="col-3 mb-4">
+              <div class="card" id="card{{$tiempo->id}}">
+                <div class="card-body">
+                  <img class="card-img-top" src="http://lorempixel.com/400/200/people/" alt="Card image cap">
+                  
+                  <p class="card-title">{{$tiempo['usuario']->nombre . " " . $tiempo['usuario']->apellidoP . " " . $tiempo['usuario']->apellidoM}}</p>
+                  <p class="card-text"><small class="text-muted">Tiempo de llegada: {{$tiempo->created_at}}</small></p>
+                  <h2 class="card-title text-center"><div id="contador{{$tiempo->id}}"></div></h2>
+                </div>
+              </div>
+            </div>
+
+          @endforeach
+        
+      
   </div>
 </div>
 

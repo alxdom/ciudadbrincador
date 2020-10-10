@@ -26,6 +26,8 @@ class Usuario extends Model
     public function tiempo()
     {
         return $this->belongsToMany(Tiempo::class,'id_usuario','id');
+        //return $this->belongsToMany('App\Tiempo');
+        
     }
 }
 

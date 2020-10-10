@@ -13,6 +13,8 @@ class Tiempo extends Model
 
     public function usuario()
     {
-        return $this->belongsToMany(Usuario::class,'id','id_usuario');
+        //return $this->belongsToMany(Usuario::class,'id','id_usuario');
+        return $this->belongsTo('App\Usuario', 'id_usuario');
+        //return $this->belongsToMany('App\Usuario', 'id_usuario');
     }
 }

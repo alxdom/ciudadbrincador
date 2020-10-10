@@ -14,7 +14,8 @@ class Asignar extends Model
     public $timestamps = false;
 
     public function usuario(){
-        return $this->belongsToMany(Usuario::class, 'id_usuario', 'id');
+        //return $this->belongsToMany(Usuario::class, 'id_usuario', 'id');
+        return $this->belongsToMany('App\Usuario', 'id_usuario');
         }
       
     public function pulsera(){
