@@ -27,9 +27,21 @@ class controlAccesoController extends Controller
 
     public function morros()
     {
+        /*$pulseras = DB::select('select a.id_pulsera, a.id_usuarios, pulsera.ip 
+            FROM `asignar_pulsera_al_cliente` a INNER JOIN pulsera where a.id_pulsera = id');  */
         
-        $tiempos = Tiempo::with('usuario')->get();
+        $tiempos = DB::select('select a.*, p.ip, t.hora_salida, t.id_usuario AS idUsuarioTiempo,t.created_at, t.updated_at, u.*
+                FROM asignar_pulsera_al_cliente AS a
+                INNER JOIN pulsera AS p
+                    ON a.id_pulsera = p.id
+                INNER JOIN usuarios AS u
+                    ON a.id_usuarios = u.id
+                INNER JOIN tiempo as t
+                    ON a.id_usuarios = t.id_usuario');
 
+        //$tiempos = Tiempo::with('usuario')->get();
+        //return $tiempos;
+        //return $pulseras;
         return view('controlAcceso.sala', compact('tiempos'));
 
     }
@@ -189,8 +201,10 @@ class controlAccesoController extends Controller
         //
     }
 
-    public function pivote()
+    public function fetch()
     {
-        
+        //Hice esto pa ver si me respondían las peticiones fetch xd
+        $mierda = "Estoy en el fetch";
+        return $mierda;
     }
 }

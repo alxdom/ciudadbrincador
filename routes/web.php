@@ -26,7 +26,7 @@ Route::resource('evento', 			'EventoController')			->middleware('auth');
 Route::resource('role', 			'RoleController')			->names('roles')->middleware('auth');
 Route::resource('user', 			'UserController')			->names('user')->middleware('auth');
 
-Route::get('/pivote','controlAccesoController@pivote')->name('accesos.pivote');
+Route::get('/fetch','controlAccesoController@fetch')->name('accesos.fetch');
 
 
 
