@@ -22,7 +22,7 @@
         <style>
             body{
                 background-image: url("https://www.xtrafondos.com/wallpapers/luces-neon-en-perspectiva-3470.jpg");
-                background-color: #D91E18;
+                background-color: black;
             }
             .alado{
                 background-color: cornflowerblue;
