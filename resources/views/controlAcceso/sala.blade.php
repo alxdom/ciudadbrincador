@@ -10,13 +10,17 @@
   // Establece la fecha hasta la que estamos contando
   //Crea un arreglo donde almacena cada registro obtenido con los datos que necesita el contador
   var countdowns = [
-    @foreach($tiempos as $tiempo) {
+    @foreach($tiempos as $tiempo) 
+    {
         id: {{$tiempo->idUsuarioTiempo}},
-        ip: {{$tiempo->ip}},
+        ip: "{{$tiempo->ip}}",
         date: new Date("<?php echo date('M j, Y H:i:s', strtotime($tiempo->hora_salida));?>").getTime()
     },
+    
     @endforeach
 ];
+
+
   // Actualiza la cuenta hacia atrás cada 1 segundo
   var timer = setInterval(function() {
     // Obtiene la fecha y hora de hoy
@@ -45,8 +49,8 @@
         var x = document.getElementById("card" + countdown.id);
         x.style.background = "yellow"; 
         x.style.color = "black";
-
-        fetch('{{$tiempo->ip}}'+'/LED=AMARILLO')
+        
+        fetch(countdown.ip+'/LED=AMARILLO')
           .then(response => response.json())
           .then(data => console.log(data));
       }
@@ -54,7 +58,9 @@
         timerElement.innerHTML = "EXPIRED";
         var x = document.getElementById("card" + countdown.id);
         x.style.background = "red"; 
-        x.style.color = "white"; 
+        x.style.color = "white";
+        timerElement.style.color = "black";
+        
         // El contador terminó, lo removemos
         countdowns.splice(index, 1);
       } else {
@@ -82,6 +88,7 @@
                   <img class="card-img-top" src="https://www.nailseatowncouncil.gov.uk/wp-content/uploads/blank-profile-picture-973460_1280.jpg" alt="Card image cap">
                   
                   <p class="card-title">{{$tiempo->nombre . " " . $tiempo->apellidoP . " " . $tiempo->apellidoM}}</p>
+                  <p class="card-title" style="color: black">{{$tiempo->ip}}</p>
                   <p class="card-text"><small class="text-muted">Tiempo de llegada: {{$tiempo->created_at}}</small></p>
                   <h2 class="card-title text-center"><div id="contador{{$tiempo->idUsuarioTiempo}}"></div></h2>
                 </div>
