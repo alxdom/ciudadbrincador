@@ -10,7 +10,7 @@ Auth::routes();
 Route::get('/', function () {return view('welcome');});
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::get('/panelAdmin', 'HomeController@panelAdmin')->name('panel')->middleware('auth');
-Route::get('eventos/create', 'EventoController@create');
+Route::get('eventos/create', 'EventoController@create')->name('crear-evento')->middleware('auth');
 
 
 
@@ -26,7 +26,8 @@ Route::resource('evento', 			'EventoController')			->middleware('auth');
 Route::resource('role', 			'RoleController')			->names('roles')->middleware('auth');
 Route::resource('user', 			'UserController')			->names('user')->middleware('auth');
 
-Route::get('/fetch','controlAccesoController@fetch')->name('accesos.fetch');
+Route::get('/fetch/{ip}','controlAccesoController@fetch')->name('accesos.fetch');
+Route::get('/desvincular', 'controlAccesoController@destroy')->name('accesos.desvincular');
 
 
 
