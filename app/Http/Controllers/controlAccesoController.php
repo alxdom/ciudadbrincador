@@ -10,6 +10,7 @@ use App\Pulsera;
 use App\Asignar;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
 
 class controlAccesoController extends Controller
 {
@@ -30,14 +31,12 @@ class controlAccesoController extends Controller
         /*$pulseras = DB::select('select a.id_pulsera, a.id_usuarios, pulsera.ip 
             FROM `asignar_pulsera_al_cliente` a INNER JOIN pulsera where a.id_pulsera = id');  */
         
-        $tiempos = DB::select('select a.*, p.ip, t.hora_salida, t.id_usuario AS idUsuarioTiempo,t.created_at, t.updated_at, u.*
-                FROM asignar_pulsera_al_cliente AS a
-                INNER JOIN pulsera AS p
-                    ON a.id_pulsera = p.id
-                INNER JOIN usuarios AS u
-                    ON a.id_usuarios = u.id
-                INNER JOIN tiempo as t
-                    ON a.id_usuarios = t.id_usuario');
+        $tiempos = DB::select('select a.*, p.ip, t.hora_salida, t.id_usuario AS idUsuarioTiempo,t.created_at, t.updated_at, u.* 
+            FROM asignar_pulsera_al_cliente AS a INNER JOIN pulsera AS p 
+                ON a.id_pulsera = p.id INNER JOIN usuarios AS u 
+                ON a.id_usuarios = u.id INNER JOIN tiempo as t 
+                ON a.id_usuarios = t.id_usuario 
+                WHERE t.created_at > CURRENT_DATE ');
 
         //$tiempos = Tiempo::with('usuario')->get();
         //return $tiempos;
@@ -131,7 +130,7 @@ class controlAccesoController extends Controller
             //$rata = Asignar::create($request->all());
             //return $rata;
             //dd($request->only(['usuario', 'pulsera', '_token']));
-            return redirect()->route('accesos.asignar')->with('status_success', 'El registro se guardo correctamente');
+            return redirect()->route('accesos.asignar')->with('status_success', 'Pulsera y tiempo asignados correctamente!');
     }
 
 
@@ -196,15 +195,26 @@ class controlAccesoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+        $myid = $_GET['id'];
+        $myip = $_GET['ip'];
+        sleep(5); //Espera x segundos a ejecutar las siguientes líneas
+        $eiliminar = DB::delete('delete FROM `asignar_pulsera_al_cliente` WHERE id_usuarios = ?', [$myid]); //Desvincula al morro de la pulsera
+        //Asignar::destroy($id);
+
+        //Intento para deesvincular morros TODOOFF
+        $res = Http::timeout(5, 5)->get("http://$myip/TODOOFF"); //APAGA LA PULSERA, espera 5 segundos la respuesta y 5 segundos después vuelve a intentarlo si falla
+        echo $res->getStatusCode();           // 200
+        //echo $res->getHeader('content-type'); // 'application/json; charset=utf8'
+        //echo $res->getBody();                 
+        //var_export($res->json());  
+        return " Se ha desvinculado al usuario : $myid y se ha enviado la orden a: $myip $res";
     }
 
-    public function fetch()
+    public function fetch($ip)
     {
         //Hice esto pa ver si me respondían las peticiones fetch xd
-        $mierda = "Estoy en el fetch";
-        return $mierda;
+        return "Recibi esta IP: $ip";
     }
 }
